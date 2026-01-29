@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree -L 2:*)",
+      "WebFetch(domain:skills.sh)"
+    ]
+  }
+}
