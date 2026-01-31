@@ -1,19 +1,19 @@
 ---
 name: mermaid-diagrams
-description: Creating various diagram types using Mermaid syntax
+description: Create various diagrams using Mermaid syntax for DeepWiki documentation
 ---
 
 # Mermaid Diagrams
 
-Mermaid allows you to create diagrams using text and code, making version control and maintenance easier.
+Mermaid allows creating diagrams using text and code, making version control and maintenance easy. It is the core visualization tool for DeepWiki documentation.
 
 ## Flowchart
 
-For showing process flows and decision points.
+Used to show processes and decision points.
 
 ```mermaid
 flowchart TD
-    A[Start] --> B{Is it valid?}
+    A[Start] --> B{Valid?}
     B -->|Yes| C[Process]
     B -->|No| D[Error]
     C --> E[End]
@@ -21,16 +21,17 @@ flowchart TD
 ```
 
 **Syntax:**
+
 ```markdown
 flowchart TD
-    A[Start] --> B{Is it valid?}
+    A[Start] --> B{Valid?}
     B -->|Yes| C[Process]
     B -->|No| D[Error]
 ```
 
 ## Sequence Diagram
 
-For showing interactions between entities over time.
+Used to show interactions between entities over time.
 
 ```mermaid
 sequenceDiagram
@@ -40,11 +41,12 @@ sequenceDiagram
 
     A->>B: Request
     B->>C: Query
-    C-->>B: Results
+    C-->>B: Result
     B-->>A: Response
 ```
 
 **Syntax:**
+
 ```markdown
 sequenceDiagram
     participant A as Client
@@ -55,7 +57,7 @@ sequenceDiagram
 
 ## Class Diagram
 
-For showing class hierarchies and relationships.
+Used to show class hierarchies and relationships.
 
 ```mermaid
 classDiagram
@@ -75,7 +77,7 @@ classDiagram
 
 ## State Diagram
 
-For showing state machines and transitions.
+Used to show state machines and transitions.
 
 ```mermaid
 stateDiagram-v2
@@ -87,9 +89,9 @@ stateDiagram-v2
     Error --> Idle: Retry
 ```
 
-## ER Diagram
+## ER Diagram (Entity Relationship)
 
-For showing database entity relationships.
+Used to show database entity relationships.
 
 ```mermaid
 erDiagram
@@ -106,9 +108,9 @@ erDiagram
     }
 ```
 
-## Graph
+## Relationship Graph
 
-For general directed or undirected relationships.
+Used for general directed or undirected relationships.
 
 ```mermaid
 graph TB
@@ -119,14 +121,15 @@ graph TB
 ```
 
 Direction options:
-- `TB` - Top to bottom
-- `BT` - Bottom to top
-- `LR` - Left to right
-- `RL` - Right to left
 
-## C4 Diagrams
+- `TB` - Top to Bottom
+- `BT` - Bottom to Top
+- `LR` - Left to Right
+- `RL` - Right to Left
 
-For software architecture (requires C4 extension).
+## C4 Diagram
+
+Used for software architecture (requires C4 extension).
 
 ```mermaid
 C4Context
@@ -141,20 +144,20 @@ Rel(user, app, "Uses")
 1. **Keep it simple** - One concept per diagram
 2. **Use consistent naming** - Match code naming
 3. **Add titles** - Explain what the diagram shows
-4. **Limit nodes** - Split if more than 10-15 elements
+4. **Limit complexity** - Split when exceeding 10-15 elements
 5. **Use subgraphs** - Group related elements
 
-## Common Notation
+## Common Symbols
 
-| Shape | Syntax | Use For |
-|-------|--------|---------|
+| Shape | Syntax | Usage |
+|-------|--------|-------|
 | Rectangle | `[Text]` | Process, step |
 | Diamond | `{Text}` | Decision |
 | Circle | `((Text))` | Start/End |
-| Database | `[(Text)]` | Data store |
+| Database | `[(Text)]` | Data storage |
 | Subroutine | `[[Text]]` | Predefined process |
 
-## Styling
+## Style Customization
 
 Apply custom styles:
 

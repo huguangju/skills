@@ -1,24 +1,24 @@
 ---
 name: c4-model
-description: Understanding and applying the C4 Model for visualizing software architecture
+description: Visualize software architecture using the C4 model for DeepWiki architecture documentation
 ---
 
 # C4 Model
 
-The C4 Model is a simple hierarchical approach to visualizing software architecture at different levels of abstraction.
+The C4 model is a simple layered approach for visualizing software architecture at different levels of abstraction. It is the core framework for DeepWiki architecture documentation.
 
 ## Overview
 
-The C4 Model consists of four levels:
+The C4 model contains four levels:
 
-1. **Context** (Level 1) - System in its environment
+1. **Context** (Level 1) - The system in its environment
 2. **Container** (Level 2) - High-level technology building blocks
 3. **Component** (Level 3) - Structural building blocks within containers
 4. **Code** (Level 4) - Implementation details (optional)
 
 ## Level 1: System Context
 
-Shows the system as a box in the center, surrounded by its users and other systems it interacts with.
+Shows the system as a central box surrounded by users and other systems it interacts with.
 
 **Focus**: Who uses the system? What external dependencies exist?
 
@@ -28,7 +28,7 @@ title System Context Diagram
 Person(user, "User", "End user of the application")
 System(app, "My Application", "The system being documented")
 System_Ext(api, "External API", "Third-party service")
-SystemDb_Ext(db, "External DB", "External data source")
+SystemDb_Ext(db, "External Database", "External data source")
 
 Rel(user, app, "Uses")
 Rel(app, api, "Calls")
@@ -37,7 +37,7 @@ Rel(app, db, "Reads/Writes")
 
 ## Level 2: Container
 
-Shows the high-level technology choices, how responsibilities are distributed, and how containers communicate.
+Shows high-level technology choices, responsibility distribution, and how containers communicate.
 
 **Focus**: What are the main applications and data stores? How do they interact?
 
@@ -45,25 +45,25 @@ Shows the high-level technology choices, how responsibilities are distributed, a
 C4Container
 title Container Diagram
 Person(user, "User")
-Container(web, "Web Application", "Vue.js/Vite", "Single page application")
+Container(web, "Web Application", "Vue.js/Vite", "Single Page Application")
 Container(api, "API Application", "Node.js/Express", "REST API")
-Container(worker, "Background Worker", "Node.js", "Processes async jobs")
+Container(worker, "Background Worker", "Node.js", "Processes async tasks")
 ContainerDb(db, "Database", "PostgreSQL", "Stores user data")
-ContainerQueue(queue, "Message Queue", "Redis", "Job queue")
+ContainerQueue(queue, "Message Queue", "Redis", "Task queue")
 
 Rel(user, web, "Uses", "HTTPS")
 Rel(web, api, "Calls", "JSON/HTTPS")
 Rel(api, db, "Reads/Writes", "SQL")
 Rel(api, queue, "Publishes to")
-Rel(worker, queue, "Consumes from")
+Rel(worker, queue, "Consumes")
 Rel(worker, db, "Reads/Writes")
 ```
 
 ## Level 3: Component
 
-Shows the components inside a single container and their interactions.
+Shows components within a single container and their interactions.
 
-**Focus**: What are the major structural parts? What are their responsibilities?
+**Focus**: What are the main structural parts? What are their responsibilities?
 
 ```mermaid
 graph TB
@@ -71,7 +71,7 @@ graph TB
         Router[Router]
         Auth[Auth Module]
         API[API Client]
-        Store[State Store]
+        Store[State Management]
         UI[UI Components]
     end
 
@@ -90,11 +90,11 @@ Shows implementation details - classes, interfaces, etc. Usually only needed for
 
 ## Best Practices
 
-1. **Start at Level 1** - Always begin with the big picture
+1. **Start from Level 1** - Always begin with the big picture
 2. **Drill down as needed** - Not every system needs all 4 levels
-3. **Keep diagrams current** - Update when architecture changes
+3. **Keep diagrams updated** - Update when architecture changes
 4. **Use consistent notation** - Stick to standard C4 notation
-5. **Add just enough detail** - Clarity over completeness
+5. **Add only enough detail** - Clarity over completeness
 
 ## C4 Notation Elements
 
@@ -103,13 +103,13 @@ Shows implementation details - classes, interfaces, etc. Usually only needed for
 | Person | Human user | `Person(id, "Name", "Description")` |
 | System | Software system | `System(id, "Name", "Description")` |
 | System_Ext | External system | `System_Ext(id, "Name", "Description")` |
-| Container | Application/data store | `Container(id, "Name", "Tech", "Description")` |
+| Container | Application/Data store | `Container(id, "Name", "Tech", "Description")` |
 | ContainerDb | Database | `ContainerDb(id, "Name", "Tech", "Description")` |
 | Rel | Relationship | `Rel(from, to, "Label")` |
 
 ## When to Use Each Level
 
-| Level | Use When |
+| Level | Use Case |
 |-------|----------|
 | Context | Onboarding, stakeholder discussions, scope definition |
 | Container | Technical discussions, deployment planning |
