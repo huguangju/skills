@@ -3,54 +3,38 @@ name: deepwiki
 description: Generate DeepWiki-style source code documentation for local codebases, transforming engineering experience into reusable cognitive structures
 metadata:
   author: Carson
-  version: "2026.1.30"
+  version: "2026.2.3"
 ---
 
-# Codebase Documentation Generator
+# DeepWiki Documentation Generator
 
-Transform "local codebases" through automatic analysis → engineering cognitive modeling → generating maintainable DeepWiki-style project documentation.
-
-**One-sentence definition**: Convert an unfamiliar code directory into a set of "human-readable, AI-searchable, long-term maintainable" engineering cognitive assets.
+Generate DeepWiki-style documentation for local codebases with a clear, repeatable pipeline and explicit outputs.
 
 ---
 
-## Usage Scenarios
+## When to Use
 
 **Use this Skill when you need to:**
-
-- Generate structured codebase cognitive documentation for new team members
-- Create systematic Wiki documentation for local/private projects
-- Externalize engineering experience into reusable knowledge assets
-- Establish long-term engineering memory sources that AI can retrieve
+- Produce structured codebase documentation for onboarding or long-term maintenance
+- Capture architecture, modules, and key flows using consistent templates
 
 **Do NOT use this Skill when:**
-
-- API documentation is needed (use TypeDoc/JSDoc)
-- The codebase is very small (< 100 lines)
-- Specific tool proprietary format output is needed (e.g., Litho)
+- You only need API reference docs (use TypeDoc/JSDoc)
+- The codebase is trivial (< 100 lines)
+- A proprietary tool format is required
 
 ---
 
 ## Core Principles
 
-### DeepWiki Style Writing Guidelines
-
-1. **Big picture first, then details** — Help readers understand "what this is" before explaining "how it works"
-2. **Responsibilities before implementation** — Explain "what it does" before "how it does it"
-3. **Semantic-level explanation** — Explain the design intent, parameter meanings, and reference relationships of key entities (classes/functions), **avoid line-by-line code translation**
-4. **Use engineering language** — Use "domain terminology" rather than "teaching language"
-
-### 3 Questions Every Page Must Answer
-
-1. What is the **purpose** of this section?
-2. What is its **position and boundary** in the system?
-3. As a developer, **when should I care about it**?
+1. **Big picture before details**
+2. **Responsibilities before implementation**
+3. **Semantic-level explanation** (avoid line‑by‑line translation)
+4. **Use domain terminology**, not tutorial tone
 
 ---
 
-## Documentation Output Structure
-
-Generate the following DeepWiki-style project Wiki structure (can be extended based on actual project needs):
+## Output Contract
 
 ```
 docs/
@@ -61,213 +45,114 @@ docs/
 │   └── ...
 ├── flows.md                 # Behavior and flows: how the system runs
 ├── design-decisions.md      # Design decisions: why designed this way
-└── appendix.md              # Appendix: glossary, references
+└── appendix.md              # Glossary and references (optional)
 ```
 
-Each page satisfies:
-
-- Can be read independently
-- Can be retrieved by RAG / search
-- Can be updated individually without full re-generation
+Each page must be independently readable and RAG‑friendly.
 
 ---
 
-## Execution Pipeline (Five-Phase Analysis)
-
-> Aligns with DeepWiki's "top-down cognition" + smart-docs' "engineering judgment"
-
----
+## Workflow (Five-Phase Analysis)
 
 ### Phase 1: Codebase Reconnaissance
 
-**Goal: Answer "What kind of project is this?"**
+**Goal:** Identify project type and tech stack.
 
 **Actions:**
-
-- Scan overall directory structure
-- Identify primary language / framework / build method
-- Determine project type (application / library / tool / multi-module project)
+- Scan directory structure
+- Identify primary language/framework/build system
+- Determine project type (app / library / tool / mono‑repo)
 
 **Ignored by default:**
-
 - `node_modules/`, `dist/`, `build/`, `.git/`
-- Obvious generated files or cache directories
+- Generated/cache directories
 
-**Intermediate output:**
-
-- Project type determination
-- Primary subsystem candidates
-- Tech stack tags
+**Output:**
+- Overview draft + tech stack tags
 
 ---
 
 ### Phase 2: Structure Modeling
 
-**Goal: Answer "How is the project organized?"**
+**Goal:** Explain how the project is organized.
 
 **Actions:**
-
-- **System-Subsystem decomposition**: Identify hierarchical structure of systems, subsystems, and modules
-- **Build semantic graph**: Extract dependencies and call relationships between modules
-- Build module boundaries (based on directory + dependency relationships)
-- Analyze module dependency directions
-- Identify core modules vs peripheral modules
+- System/subsystem decomposition
+- Module boundaries from directory + dependencies
+- Identify core vs peripheral modules
 
 **Output:**
-
 - `architecture.md`
-- Module responsibility overview
-- Architecture relationship diagrams (Mermaid)
-- System-Subsystem hierarchy table
+- Dependency diagrams (Mermaid)
+- System/subsystem hierarchy table
 
-**Writing guidelines:**
-
-Use the `architecture.md` template from [templates.md](references/templates.md).
+**Template:** use [templates.md](references/templates.md).
 
 ---
 
 ### Phase 3: Module Understanding
 
-**Goal: Answer "What is the purpose of each module?"**
+**Goal:** Explain each core module’s purpose and boundaries.
 
-**For each core module:**
-
-- **Build internal semantic graph**: Extract key entities (classes/interfaces/functions) and their call, inheritance, and dependency relationships
-- Extract key files and public API
-- Summarize module responsibilities and boundaries
-- Identify typical usage patterns
+**Actions:**
+- Extract key entities (classes/functions/interfaces)
+- Summarize responsibilities and public API
+- Identify common usage patterns
 
 **Output:**
-
 - `modules/[module-name].md`
-- Key entity relationship diagrams (Class Diagram / Entity Graph)
+- Key entity relationship diagrams
 
-**Module documentation unified structure:**
-
-Use the `modules/[module-name].md` template from [templates.md](references/templates.md).
+**Template:** use [templates.md](references/templates.md).
 
 ---
 
 ### Phase 4: Flow Synthesis
 
-**Goal: Answer "How does the system run?"**
+**Goal:** Describe how the system runs end‑to‑end.
 
 **Actions:**
-
-- Locate entry points (CLI / main / server / job)
-- Track main call chains
-- Abstract key flows and control transfers
+- Find entry points (CLI / main / server / job)
+- Trace main call chains
+- Summarize critical flows and exceptions
 
 **Output:**
-
 - `flows.md`
-- Main process explanation
-- Optional flows / exception paths
 
-**Writing guidelines:**
-
-Use the `flows.md` template from [templates.md](references/templates.md).
+**Template:** use [templates.md](references/templates.md).
 
 ---
 
 ### Phase 5: Design Insight
 
-**Goal: Answer "Why was it designed this way?"**
+**Goal:** Explain *why* the system is designed this way.
 
 **Actions:**
-
-- **Auto-summary and completion**: Summarize key information and complete missing logical explanations based on context
-- Identify obvious design patterns
-- Infer historical decisions and engineering trade-offs
-- Annotate certainty / uncertainty of inferences
+- Summarize trade‑offs and design patterns
+- Mark inferred reasoning vs confirmed facts
 
 **Output:**
-
 - `design-decisions.md`
 
-**Writing guidelines:**
-
-Use the `design-decisions.md` template from [templates.md](references/templates.md).
+**Template:** use [templates.md](references/templates.md).
 
 ---
 
-## Detailed Documentation Templates
+## Quality Gates
 
-For detailed documentation templates, please refer to [templates.md](references/templates.md), including:
-
-- `overview.md`
-- `architecture.md`
-- `modules/[module-name].md`
-- `flows.md`
-- `design-decisions.md`
+- Every page answers: purpose / boundary / when to care
+- No line‑by‑line code narration
+- Mermaid diagrams render correctly
+- Internal links are valid
+- Terminology is consistent
 
 ---
 
-## VitePress Integration
+## References
 
-For detailed configuration, please refer to [vitepress-config.md](references/vitepress-config.md).
-
----
-
-## Language/Framework Specific Patterns
-
-### Vue 3 Projects
-
-- **Focus**: Composables, components, reactive state, Props/Emits
-- **Entry**: `main.ts`, `App.vue`
-- **Config**: `vite.config.ts`, `tsconfig.json`
-- **Key Patterns**:
-  - Composables: Reusable logic extraction
-  - Provide/Inject: Cross-level state sharing
-  - Pinia: Global state management
-  - Component communication: Props down, Events up
-
-### React Projects
-
-- **Focus**: Hooks, components, Context, state management
-- **Entry**: `main.tsx`, `App.tsx`
-- **Config**: `vite.config.ts`, `tsconfig.json`
-- **Key Patterns**:
-  - Custom Hooks: Reusable logic
-  - Context API: Cross-level state sharing
-  - Zustand/Redux: Global state management
-  - Component composition patterns
-
-### TypeScript/JavaScript
-
-- **Focus**: Modules, exports, types, interfaces
-- **Entry**: `index.ts`, `main.ts`
-- **Config**: `tsconfig.json`, `package.json`
-
----
-
-## Quality Checklist
-
-- [ ] Each page answers "What is its purpose"
-- [ ] Each page answers "Where is its position and boundary"
-- [ ] Each page answers "When should I care about it"
-- [ ] Avoid line-by-line code explanation
-- [ ] Use engineering language rather than teaching language
-- [ ] Explain big picture before details
-- [ ] Explain responsibilities before implementation
-- [ ] Mermaid diagrams render correctly
-- [ ] Documentation links are valid
-- [ ] Naming is consistent
-
----
-
-## Extension Directions
-
-- ✅ Incremental analysis (only analyze changed modules)
-- ✅ Multi-subproject / Monorepo support
-- ✅ Integration with Obsidian / internal Wiki
-- ✅ As AI's long-term engineering memory source
-
----
-
-## Summary
-
-> **The value of this Skill is not in "writing documentation",**
-> **but in solidifying "code reading engineering experience" into reusable cognitive structures.**
-
-This is a future-facing, engineering-grade knowledge generation Skill.
+| Topic | Description | Reference |
+|-------|-------------|-----------|
+| Templates | Page templates for each document | [reference](references/templates.md) |
+| Mermaid Guide | Diagram conventions | [reference](references/mermaid-diagrams.md) |
+| VitePress Config | Docs site setup | [reference](references/vitepress-config.md) |
+| Framework Patterns | Framework-specific analysis focus | [reference](references/framework-patterns.md) |

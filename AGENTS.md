@@ -5,15 +5,24 @@ This repository contains hand-written Agent Skills.
 ## Repository Structure
 
 ```
+
+
 .
 ├── meta.ts              # Skill metadata
 ├── README.md            # Project documentation
 ├── skills/              # Skill packages
-│   ├── antfu/           # Anthony Fu's preferences
-│   └── codebase-docs/   # Codebase documentation generator
+│   ├── deepwiki/   # DeepWiki documentation generator
+│   │   ├── SKILL.md
+│   │   └── references/
+│   ├── docs-simplify/   # Concise documentation editing
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── vitepress-migration/   # VitePress migration tool
 │       ├── SKILL.md
 │       └── references/
 └── package.json
+
+
 ```
 
 ## Skill Format

@@ -8,5 +8,7 @@ export interface VendorSkillMeta {
  * Hand-written skills with custom preferences/tastes/recommendations
  */
 export const manual = [
-  'codebase-docs',
+  'deepwiki',
+  'docs-simplify',
+  'vitepress-migration',
 ]

@@ -1,6 +1,9 @@
 ---
 name: vitepress-migration
 description: Migrate existing Markdown documents to VitePress with proper routing, navigation, and Mermaid diagram support. Use when integrating legacy Markdown (.md) files into a VitePress project, converting documentation from Obsidian/Notion/other platforms, or setting up structured documentation sites. Triggers on requests involving Markdown migration, VitePress setup, documentation restructuring, or Mermaid diagram rendering in VitePress.
+metadata:
+  author: Carson
+  version: "2026.2.3"
 ---
 
 # VitePress Markdown Migration
@@ -9,7 +12,7 @@ Migrate existing Markdown documents to VitePress with correct routing, navigatio
 
 ## Before Starting
 
-**Critical Decision Required**: Choose integration mode once at the start. This decision is final.
+**Critical Decision Required:** Choose integration mode once at the start. This decision is final.
 
 ### Mode A: Structure-Preserving
 - Existing directory structure maps directly to VitePress routes
@@ -20,6 +23,13 @@ Migrate existing Markdown documents to VitePress with correct routing, navigatio
 - Original structure is discarded
 - Content reorganized into new information architecture
 - Best for: Product documentation, public-facing docs
+
+## Mode Selection Guide
+
+- If the current structure is already meaningful → **Mode A**
+- If the audience or information architecture changes → **Mode B**
+- If URL stability matters → **Mode A**
+- If you need curated navigation → **Mode B**
 
 ## Migration Workflow
 
@@ -76,6 +86,8 @@ Rules:
 
 ### Step 2: Normalize Markdown Content
 
+**Minimal-change rule:** run detection first, then fix only flagged issues.
+
 Mandatory checks:
 - Exactly one top-level `#` heading per file
 - No skipped heading levels
@@ -94,7 +106,7 @@ python3 scripts/detect_issues.py <source-dir>
 
 ### Step 3: Flowcharts and Mermaid Rendering (Critical)
 
-**Mandatory**: All diagrams MUST use standard Mermaid syntax.
+**Mandatory:** All diagrams MUST use standard Mermaid syntax.
 
 Correct format:
 ```mermaid
@@ -211,6 +223,19 @@ Minimum validation:
    - [ ] Images display correctly
    - [ ] Tables format properly
    - [ ] Code blocks have syntax highlighting
+
+## Tooling Notes
+
+- `scripts/detect_issues.py` and `scripts/cleanup.py` must exist in the repo.
+- If missing, run the checklist manually or create scripts first.
+
+## Pre‑Publish Checklist
+
+- VitePress dev server runs without errors
+- Sidebar matches routes
+- Mermaid diagrams render correctly
+- Links resolve
+- Images load
 
 ## Reference Materials
 
